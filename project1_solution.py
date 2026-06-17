@@ -301,13 +301,13 @@ try:
     print("    ✅ Pandera schema validation PASSED — all contracts satisfied")
     print(f"    Validated shape: {validated_df.shape}")
 
-except pa.errors.SchemaErrors as err:
-    print("    ❌ Schema validation FAILED — failure cases:")
-    print(err.failure_cases)
-    validated_df = df.copy()
-
 except ImportError:
     print("    ⚠ Pandera not available — skipping runtime contract check")
+    validated_df = df.copy()
+
+except Exception as err:
+    print("    ❌ Schema validation FAILED — failure cases:")
+    print(err)
     validated_df = df.copy()
 
 
