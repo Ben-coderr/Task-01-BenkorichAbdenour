@@ -60,7 +60,7 @@ for col in missing_report.index:
     else:
         missing_report.loc[col, "Strategy"] = "KNN Imputation"
 
-print("\n📊 Missing Data Report:")
+print("\n Missing Data Report:")
 print(missing_report[missing_report["Missing Count"] > 0])
 
 
@@ -144,7 +144,7 @@ def iqr_winsorize(series: pd.Series, col_name: str) -> pd.Series:
 for col in ["Age", "Fare", "SibSp", "Parch"]:
     df[col] = iqr_winsorize(df[col], col)
 
-print(f"\n✅ Row count preserved after winsorization: {len(df)}")
+print(f"\n Row count preserved after winsorization: {len(df)}")
 
 
 # ─────────────────────────────────────────────────────────
@@ -252,7 +252,7 @@ if high_corr_pairs:
               f"(weaker link to target: corr={min(abs(corr_a), abs(corr_b)):.3f})")
         cols_to_drop.append(drop)
 else:
-    print("    No pairs above 0.80 — feature matrix is collinearity-free ✅")
+    print("    No pairs above 0.80 — feature matrix is collinearity-free ")
 
 # Step 4: Drop collinear weaker features
 cols_to_drop = list(set(cols_to_drop))
@@ -298,7 +298,7 @@ try:
     }, coerce=True)
 
     validated_df = schema.validate(df, lazy=True)
-    print("    ✅ Pandera schema validation PASSED — all contracts satisfied")
+    print("     Pandera schema validation PASSED — all contracts satisfied")
     print(f"    Validated shape: {validated_df.shape}")
 
 except ImportError:
@@ -325,14 +325,14 @@ print("  PROJECT 1 — FINAL SUMMARY REPORT")
 print("=" * 60)
 
 print(f"""
-✅ PHASE 1 — INPUT FIDELITY
+ PHASE 1 — INPUT FIDELITY
    • Embarked  : 2 rows dropped (<5% MCAR threshold)
    • Age       : Group-wise median imputation by [Pclass × Sex]
    • Cabin     : KNN Imputation → binary 'has_cabin' feature (>20%)
    • Outliers  : IQR Winsorization on Age, Fare, SibSp, Parch
                  (numpy.clip preserves all {len(validated_df)} rows)
 
-✅ PHASE 2 — VECTORIZED PROCESSING
+ PHASE 2 — VECTORIZED PROCESSING
    • Encoding  : One-Hot Encoding on Sex, Embarked (avoids false ordinal hierarchy)
    • Features  : 5 new predictive features engineered:
                  1. FamilySize     → SibSp + Parch + 1
@@ -342,7 +342,7 @@ print(f"""
                  5. Title          → extracted from Name (5 classes)
    • Collin.   : Pearson correlation sweep > 0.80 completed
 
-✅ PHASE 3 — OUTPUT CONTRACTS
+ PHASE 3 — OUTPUT CONTRACTS
    • Pandera   : Runtime schema assertions on all 12 output columns
    • Export    : Clean dataset → titanic_cleaned_engineered.csv
 
